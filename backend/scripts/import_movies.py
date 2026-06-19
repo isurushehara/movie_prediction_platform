@@ -6,6 +6,9 @@ import re
 # ----------------------------
 df = pd.read_csv("dataset/movies.csv")
 
+# Replace all NaN values
+df = df.where(pd.notnull(df), None)
+
 print("Original Shape:", df.shape)
 
 # ----------------------------

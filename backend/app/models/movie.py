@@ -7,9 +7,11 @@ class Movie(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    title = Column(String(255))
+    title = Column(String(255), nullable=False)
 
     year = Column(String(30))
+
+    release_year = Column(Integer)
 
     genre = Column(Text)
 
@@ -17,10 +19,14 @@ class Movie(Base):
 
     description = Column(Text)
 
-    stars = Column(Text)
+    director = Column(Text)
 
-    votes = Column(String(50))
+    actors = Column(Text)
+
+    votes = Column(Integer)
 
     runtime = Column(Integer)
 
-    gross = Column(String(50))
+    gross = Column(Float)
+
+    combined_features = Column(Text)
