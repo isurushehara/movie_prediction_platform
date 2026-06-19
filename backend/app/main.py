@@ -1,17 +1,9 @@
 from fastapi import FastAPI
 
 from app.api.auth import router as auth_router
+from app.api.movies import router as movie_router
 
-app = FastAPI(
-    title="Movie Recommendation API"
-)
+app = FastAPI()
 
 app.include_router(auth_router)
-
-
-@app.get("/")
-def home():
-
-    return {
-        "message": "API Running Successfully"
-    }
+app.include_router(movie_router)
