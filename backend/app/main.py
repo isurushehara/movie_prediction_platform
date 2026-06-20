@@ -4,6 +4,23 @@ from app.api.movies import router as movie_router
 from app.api.recommendations import router as recommendation_router
 from app.api.ratings import router as rating_router
 from app.api.personalized import router as personalized_router
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+
+    CORSMiddleware,
+
+    allow_origins=[
+        "http://localhost:3000"
+    ],
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"],
+
+)
 
 app = FastAPI(title="Movie Recommendation API")
 
