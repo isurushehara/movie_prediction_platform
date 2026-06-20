@@ -12,28 +12,35 @@ import { Movie } from "@/types/movie";
 export default function Home() {
 
     const [movies, setMovies] = useState<Movie[]>([]);
+
     const [search, setSearch] = useState("");
 
     useEffect(() => {
 
         api.get("/movies")
 
-            .then((res) => {
+            .then((response) => {
 
-                setMovies(res.data);
+                setMovies(response.data);
 
             })
 
-            .catch((err) => {
+            .catch((error) => {
 
-                console.log(err);
+                console.log(error);
 
             });
 
     }, []);
 
     const filteredMovies = movies.filter((movie) =>
-        movie.title.toLowerCase().includes(search.toLowerCase())
+
+        movie.title.toLowerCase().includes(
+
+            search.toLowerCase()
+
+        )
+
     );
 
     return (
@@ -54,7 +61,7 @@ export default function Home() {
 
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 {
 
