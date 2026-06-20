@@ -8,81 +8,85 @@ import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 
 import { Movie } from "@/types/movie";
+import RatingStars from "@/components/RatingStars";
 
 export default function Home() {
 
-    const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-    const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
 
-    useEffect(() => {
+  useEffect(() => {
 
-        api.get("/movies")
+    api.get("/movies")
 
-            .then((response) => {
+      .then((response) => {
 
-                setMovies(response.data);
+        setMovies(response.data);
 
-            })
+      })
 
-            .catch((error) => {
+      .catch((error) => {
 
-                console.log(error);
+        console.log(error);
 
-            });
+      });
 
-    }, []);
+  }, []);
 
-    const filteredMovies = movies.filter((movie) =>
 
-        movie.title.toLowerCase().includes(
 
-            search.toLowerCase()
+  const filteredMovies = movies.filter((movie) =>
 
-        )
+    movie.title.toLowerCase().includes(
 
-    );
+      search.toLowerCase()
 
-    return (
+    )
 
-        <main className="max-w-7xl mx-auto p-8">
+  );
 
-            <h1 className="text-4xl font-bold mb-8">
+  return (
 
-                🎬 Movie Recommendation System
+    <main className="max-w-7xl mx-auto p-8">
 
-            </h1>
+      <h1 className="text-4xl font-bold mb-8">
 
-            <SearchBar
+        🎬 Movie Recommendation System
 
-                value={search}
+      </h1>
 
-                onChange={setSearch}
+      <SearchBar
+
+        value={search}
+
+        onChange={setSearch}
+
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        {
+
+          filteredMovies.map((movie) => (
+
+            <MovieCard
+
+              key={movie.id}
+
+              movie={movie}
 
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-                {
+          ))
 
-                    filteredMovies.map((movie) => (
+        }
 
-                        <MovieCard
+      </div>
 
-                            key={movie.id}
+    </main>
 
-                            movie={movie}
-
-                        />
-
-                    ))
-
-                }
-
-            </div>
-
-        </main>
-
-    );
+  );
 
 }
