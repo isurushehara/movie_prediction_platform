@@ -1,37 +1,29 @@
 import { Movie } from "@/types/movie";
 
-interface Props {
-
+interface MovieCardProps {
     movie: Movie;
-
 }
 
-export default function MovieCard({ movie }: Props) {
-
+export default function MovieCard({ movie }: MovieCardProps) {
     return (
+        <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition">
 
-        <div className="border rounded-lg p-4 shadow hover:shadow-xl">
-
-            <h2 className="text-xl font-bold">
-
+            <h2 className="text-lg font-bold">
                 {movie.title}
-
             </h2>
 
-            <p className="mt-2">
-
+            <p className="text-yellow-500 mt-2">
                 ⭐ {movie.imdb_rating}
-
             </p>
 
-            <p className="text-gray-600">
-
+            <p className="text-gray-600 mt-2">
                 {movie.genre}
+            </p>
 
+            <p className="text-sm text-gray-500 mt-2">
+                {movie.release_year}
             </p>
 
         </div>
-
     );
-
 }

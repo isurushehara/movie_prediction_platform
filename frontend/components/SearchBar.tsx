@@ -1,33 +1,21 @@
-interface Props {
-
+interface SearchBarProps {
     value: string;
-
     onChange: (value: string) => void;
-
 }
 
 export default function SearchBar({
-
     value,
-
-    onChange
-
-}: Props) {
+    onChange,
+}: SearchBarProps) {
 
     return (
 
         <input
-
             type="text"
-
             placeholder="Search movies..."
-
             value={value}
-
             onChange={(e) => onChange(e.target.value)}
-
-            className="border rounded-lg p-3 w-full"
-
+            className="w-full p-3 border rounded-lg mb-8"
         />
 
     );

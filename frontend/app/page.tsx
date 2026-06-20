@@ -1,73 +1,81 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MovieCard from "@/components/MovieCard";
+
 import api from "@/services/api";
-import { Movie } from "@/types/movie";
+
+import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
+
+import { Movie } from "@/types/movie";
 
 export default function Home() {
 
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [search, setSearch] = useState("");
+    const [movies, setMovies] = useState<Movie[]>([]);
+    const [search, setSearch] = useState("");
 
-  useEffect(() => {
+    useEffect(() => {
 
-    api.get("/movies")
+        api.get("/movies")
 
-      .then((response) => {
+            .then((res) => {
 
-        setMovies(response.data);
+                setMovies(res.data);
 
-      })
+            })
 
-      .catch((error) => {
+            .catch((err) => {
 
-        console.log(error);
+                console.log(err);
 
-      });
+            });
 
-  }, []);
+    }, []);
 
-  return (
+    const filteredMovies = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(search.toLowerCase())
+    );
 
-    <main className="p-10">
+    return (
 
-      <h1 className="text-4xl font-bold mb-8">
+        <main className="max-w-7xl mx-auto p-8">
 
-        Movie Recommendation System
+            <h1 className="text-4xl font-bold mb-8">
 
-      </h1>
-      <SearchBar
+                🎬 Movie Recommendation System
 
-        value={search}
+            </h1>
 
-        onChange={setSearch}
+            <SearchBar
 
-      />
+                value={search}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        {
-
-          movies.map((movie) => (
-
-            <MovieCard
-
-              key={movie.id}
-
-              movie={movie}
+                onChange={setSearch}
 
             />
 
-          ))
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        }
+                {
 
-      </div>
+                    filteredMovies.map((movie) => (
 
-    </main>
+                        <MovieCard
 
-  );
+                            key={movie.id}
+
+                            movie={movie}
+
+                        />
+
+                    ))
+
+                }
+
+            </div>
+
+        </main>
+
+    );
 
 }
