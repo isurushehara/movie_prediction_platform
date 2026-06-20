@@ -28,6 +28,10 @@ export default function Navbar() {
                         Recommendations
                     </Link>
 
+                    <Link href="/register">
+                        Register
+                    </Link>
+
                     <Link href="/login">
                         Login
                     </Link>

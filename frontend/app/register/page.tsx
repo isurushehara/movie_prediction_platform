@@ -4,19 +4,23 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/services/api";
 
-export default function LoginPage() {
+export default function RegisterPage() {
 
     const router = useRouter();
+
+    const [name, setName] = useState("");
 
     const [email, setEmail] = useState("");
 
     const [password, setPassword] = useState("");
 
-    const login = async () => {
+    const register = async () => {
 
         try {
 
-            const response = await api.post("/auth/login", {
+            await api.post("/auth/register", {
+
+                name,
 
                 email,
 
@@ -24,21 +28,13 @@ export default function LoginPage() {
 
             });
 
-            localStorage.setItem(
+            alert("Registration successful!");
 
-                "token",
-
-                response.data.access_token
-
-            );
-
-            alert("Login successful!");
-
-            router.push("/");
+            router.push("/login");
 
         } catch {
 
-            alert("Invalid email or password");
+            alert("Registration failed");
 
         }
 
@@ -50,9 +46,21 @@ export default function LoginPage() {
 
             <h1 className="text-3xl font-bold mb-6">
 
-                Login
+                Register
 
             </h1>
+
+            <input
+
+                className="border p-3 w-full mb-4 rounded"
+
+                placeholder="Name"
+
+                value={name}
+
+                onChange={(e) => setName(e.target.value)}
+
+            />
 
             <input
 
@@ -82,13 +90,13 @@ export default function LoginPage() {
 
             <button
 
-                onClick={login}
+                onClick={register}
 
-                className="bg-blue-600 text-white w-full p-3 rounded"
+                className="bg-green-600 text-white w-full p-3 rounded"
 
             >
 
-                Login
+                Register
 
             </button>
 

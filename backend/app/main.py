@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from app.api.movies import router as movie_router
 from app.api.recommendations import router as recommendation_router
 from app.api.ratings import router as rating_router
+from app.api.auth import router as auth_router
 from app.api.personalized import router as personalized_router
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -24,7 +25,7 @@ app.add_middleware(
 
 )
 
-
+app.include_router(auth_router)
 app.include_router(personalized_router)
 app.include_router(movie_router)
 app.include_router(recommendation_router)
