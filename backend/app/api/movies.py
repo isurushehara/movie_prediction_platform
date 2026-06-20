@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy.orm import Session, desc
+from sqlalchemy.orm import Session
+from sqlalchemy import desc
 
 from app.database.connection import get_db
 from app.models.movie import Movie
