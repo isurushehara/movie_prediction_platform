@@ -42,63 +42,79 @@ export default function RegisterPage() {
 
     return (
 
-        <div className="max-w-md mx-auto mt-20 bg-white p-6 rounded shadow">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 px-4">
 
-            <h1 className="text-3xl font-bold mb-6">
+            <div className="w-full max-w-md bg-slate-800/70 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-700 p-8">
 
-                Register
+                <div className="text-center mb-8">
 
-            </h1>
+                    <h1 className="text-4xl font-bold text-white">
 
-            <input
+                        Create Account 🚀
 
-                className="border p-3 w-full mb-4 rounded"
+                    </h1>
 
-                placeholder="Name"
+                    <p className="text-slate-400 mt-2">
 
-                value={name}
+                        Join MovieAI and get personalized recommendations
 
-                onChange={(e) => setName(e.target.value)}
+                    </p>
 
-            />
+                </div>
 
-            <input
+                <input
+                    type="text"
+                    placeholder="Full Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-slate-900 text-white border border-slate-700 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
 
-                className="border p-3 w-full mb-4 rounded"
+                <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-slate-900 text-white border border-slate-700 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
 
-                placeholder="Email"
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-slate-900 text-white border border-slate-700 rounded-lg px-4 py-3 mb-6 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
 
-                value={email}
+                <button
+                    onClick={register}
+                    className="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white py-3 rounded-lg font-semibold"
+                >
 
-                onChange={(e) => setEmail(e.target.value)}
+                    Create Account
 
-            />
+                </button>
 
-            <input
+                <div className="mt-6 text-center">
 
-                type="password"
+                    <p className="text-slate-400">
 
-                className="border p-3 w-full mb-4 rounded"
+                        Already have an account?
 
-                placeholder="Password"
+                    </p>
 
-                value={password}
+                    <a
+                        href="/login"
+                        className="text-blue-400 hover:text-blue-300 font-medium"
+                    >
 
-                onChange={(e) => setPassword(e.target.value)}
+                        Login Here
 
-            />
+                    </a>
 
-            <button
+                </div>
 
-                onClick={register}
-
-                className="bg-green-600 text-white w-full p-3 rounded"
-
-            >
-
-                Register
-
-            </button>
+            </div>
 
         </div>
 

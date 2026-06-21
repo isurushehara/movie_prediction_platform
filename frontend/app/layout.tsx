@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
 
@@ -27,17 +28,21 @@ export default function RootLayout({
 
         <html lang="en">
 
-            <body className="bg-gray-100 min-h-screen flex flex-col">
+            <body>
 
-                <Navbar />
+                <AuthProvider>
 
-                <main className="flex-1">
+                    <Navbar />
 
-                    {children}
+                    <main className="flex-1">
 
-                </main>
+                        {children}
 
-                <Footer />
+                    </main>
+
+                    <Footer />
+
+                </AuthProvider>
 
             </body>
 

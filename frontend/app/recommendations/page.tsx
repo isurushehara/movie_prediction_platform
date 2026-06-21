@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import api from "@/services/api";
 import { getCurrentUser } from "@/services/auth";
-
 import { Recommendation } from "@/types/recommendation";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function RecommendationsPage() {
 
@@ -47,94 +46,199 @@ export default function RecommendationsPage() {
 
         return (
 
-            <main className="p-10">
+            <main className="min-h-screen bg-slate-950 flex items-center justify-center">
 
-                Loading recommendations...
+                <div className="text-center">
 
-            </main>
+                    <div
+                        className="
+                        animate-spin
+                        rounded-full
+                        h-16
+                        w-16
+                        border-b-4
+                        border-blue-500
+                        mx-auto
+                    "
+                    />
 
-        );
+                    <p className="text-slate-400 mt-6">
 
-    }
-
-    const user = getCurrentUser();
-
-    if (!user) {
-
-        return (
-
-            <main className="p-10">
-
-                <h1 className="text-2xl">
-
-                    Please login first
-
-                </h1>
-
-            </main>
-
-        );
-
-    }
-
-    return (
-
-        <main className="max-w-6xl mx-auto p-10">
-
-            <h1 className="text-4xl font-bold mb-8">
-
-                🎯 Recommended For You
-
-            </h1>
-
-            {
-
-                recommendations.length === 0 ? (
-
-                    <p>
-
-                        Rate a few movies first to get recommendations.
+                        Loading recommendations...
 
                     </p>
 
-                ) : (
+                </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </main>
 
-                        {
+        );
 
-                            recommendations.map((movie) => (
+    }
 
-                                <div
-                                    key={movie.movie_id}
-                                    className="bg-white rounded-lg shadow p-5"
-                                >
 
-                                    <h2 className="text-xl font-bold">
+    return (
 
-                                        {movie.title}
+        <ProtectedRoute>
 
-                                    </h2>
+            <main className="min-h-screen bg-slate-950 text-white">
 
-                                    <p className="mt-2 text-green-600">
+                {/* Header */}
 
-                                        Match Score: {movie.score}
+                <section className="max-w-7xl mx-auto px-8 pt-16 pb-10">
 
-                                    </p>
+                    <div className="text-center">
 
-                                </div>
+                        <h1 className="text-5xl font-extrabold">
 
-                            ))
+                            🎯 Recommended For You
 
-                        }
+                        </h1>
+
+                        <p className="text-slate-400 mt-4 text-lg">
+
+                            Personalized recommendations based on your ratings and preferences.
+
+                        </p>
 
                     </div>
 
-                )
+                </section>
 
-            }
+                {/* Content */}
 
-        </main>
+                <section className="max-w-7xl mx-auto px-8 pb-20">
+
+                    {
+
+                        recommendations.length === 0 ? (
+
+                            <div
+                                className="
+                                bg-slate-800
+                                rounded-2xl
+                                p-10
+                                text-center
+                                shadow-lg
+                            "
+                            >
+
+                                <div className="text-6xl mb-4">
+
+                                    🎬
+
+                                </div>
+
+                                <h2 className="text-2xl font-bold">
+
+                                    No Recommendations Yet
+
+                                </h2>
+
+                                <p className="text-slate-400 mt-4">
+
+                                    Rate a few movies to unlock personalized recommendations.
+
+                                </p>
+
+                            </div>
+
+                        ) : (
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                                {
+
+                                    recommendations.map((movie) => (
+
+                                        <div
+                                            key={movie.movie_id}
+                                            className="
+                                            bg-slate-800
+                                            rounded-2xl
+                                            overflow-hidden
+                                            shadow-lg
+                                            hover:shadow-blue-500/20
+                                            hover:scale-105
+                                            transition-all
+                                            duration-300
+                                        "
+                                        >
+
+                                            {/* Poster Placeholder */}
+
+                                            <div
+                                                className="
+                                                h-52
+                                                bg-gradient-to-br
+                                                from-blue-600
+                                                to-purple-700
+                                                flex
+                                                items-center
+                                                justify-center
+                                                text-6xl
+                                            "
+                                            >
+
+                                                🎬
+
+                                            </div>
+
+                                            {/* Movie Info */}
+
+                                            <div className="p-6">
+
+                                                <h2
+                                                    className="
+                                                    text-xl
+                                                    font-bold
+                                                    text-white
+                                                    mb-4
+                                                "
+                                                >
+
+                                                    {movie.title}
+
+                                                </h2>
+
+                                                <div
+                                                    className="
+                                                    inline-flex
+                                                    items-center
+                                                    px-4
+                                                    py-2
+                                                    rounded-full
+                                                    bg-green-500/20
+                                                    text-green-400
+                                                    font-semibold
+                                                "
+                                                >
+
+                                                    🎯 Match Score:
+                                                    {" "}
+                                                    {movie.score}
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    ))
+
+                                }
+
+                            </div>
+
+                        )
+
+                    }
+
+                </section>
+
+            </main>
+
+        </ProtectedRoute>
 
     );
 

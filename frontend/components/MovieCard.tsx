@@ -9,38 +9,112 @@ export default function MovieCard({ movie }: Props) {
 
     return (
 
-        <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-xl transition">
+        <div
+            className="
+            bg-slate-800
+            rounded-2xl
+            overflow-hidden
+            shadow-lg
+            hover:shadow-blue-500/20
+            hover:scale-105
+            transition-all
+            duration-300
+        "
+        >
 
-            <h2 className="text-xl font-bold">
+            {/* Poster Placeholder */}
 
-                {movie.title}
+            <div
+                className="
+                h-64
+                bg-gradient-to-br
+                from-blue-600
+                to-purple-700
+                flex
+                items-center
+                justify-center
+                text-6xl
+            "
+            >
 
-            </h2>
+                🎬
 
-            <p className="mt-2">
+            </div>
 
-                ⭐ {movie.imdb_rating}
+            <div className="p-5">
 
-            </p>
+                <h2
+                    className="
+                    text-xl
+                    font-bold
+                    text-white
+                    line-clamp-2
+                    min-h-[56px]
+                "
+                >
 
-            <p className="text-gray-600 mt-2">
+                    {movie.title}
 
-                {movie.genre}
+                </h2>
 
-            </p>
+                <div className="mt-4 flex items-center justify-between">
 
-            <Link href={`/movies/${movie.id}`}>
+                    <span
+                        className="
+                        bg-yellow-500/20
+                        text-yellow-400
+                        px-3
+                        py-1
+                        rounded-full
+                        text-sm
+                        font-medium
+                    "
+                    >
 
-                <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
+                        ⭐ {movie.imdb_rating}
 
-                    View Details
+                    </span>
 
-                </button>
+                </div>
 
-            </Link>
+                <p
+                    className="
+                    text-slate-400
+                    mt-4
+                    text-sm
+                    line-clamp-2
+                "
+                >
+
+                    {movie.genre}
+
+                </p>
+
+                <Link href={`/movies/${movie.id}`}>
+
+                    <button
+                        className="
+                        mt-6
+                        w-full
+                        bg-blue-600
+                        hover:bg-blue-700
+                        transition
+                        text-white
+                        py-3
+                        rounded-xl
+                        font-medium
+                    "
+                    >
+
+                        View Details
+
+                    </button>
+
+                </Link>
+
+            </div>
 
         </div>
 
     );
-
 }

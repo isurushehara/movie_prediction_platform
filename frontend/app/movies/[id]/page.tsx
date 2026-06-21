@@ -16,6 +16,8 @@ export default function MovieDetailsPage() {
 
     const [movie, setMovie] = useState<Movie | null>(null);
 
+    const [recommendations, setRecommendations] = useState<string[]>([]);
+
     const user = getCurrentUser();
 
     useEffect(() => {
@@ -85,89 +87,290 @@ export default function MovieDetailsPage() {
 
     return (
 
-        <main className="max-w-5xl mx-auto p-10">
+        <main className="min-h-screen bg-slate-950 text-white">
 
-            <h1 className="text-5xl font-bold">
+            {/* Hero Section */}
 
-                {movie.title}
+            <section
+                className="
+                bg-gradient-to-r
+                from-slate-900
+                via-slate-800
+                to-slate-900
+                border-b
+                border-slate-700
+            "
+            >
 
-            </h1>
+                <div className="max-w-7xl mx-auto px-8 py-16">
 
-            <div className="mt-6 space-y-3">
+                    <div className="grid md:grid-cols-3 gap-10">
 
-                <p>
+                        {/* Poster */}
 
-                    ⭐ {movie.imdb_rating}
+                        <div
+                            className="
+                            h-[450px]
+                            rounded-2xl
+                            bg-gradient-to-br
+                            from-blue-600
+                            to-purple-700
+                            flex
+                            items-center
+                            justify-center
+                            text-8xl
+                            shadow-xl
+                        "
+                        >
 
-                </p>
+                            🎬
 
-                <p>
+                        </div>
 
-                    📅 {movie.release_year}
+                        {/* Movie Info */}
 
-                </p>
+                        <div className="md:col-span-2">
 
-                <p>
+                            <h1 className="text-5xl font-bold">
 
-                    🎭 {movie.genre}
+                                {movie.title}
 
-                </p>
+                            </h1>
 
-                <p>
+                            <div className="flex flex-wrap gap-4 mt-6">
 
-                    👨‍🎬 {movie.director}
+                                <span
+                                    className="
+                                    bg-yellow-500/20
+                                    text-yellow-400
+                                    px-4
+                                    py-2
+                                    rounded-full
+                                "
+                                >
+                                    ⭐ {movie.imdb_rating}
+                                </span>
 
-                </p>
+                                <span
+                                    className="
+                                    bg-blue-500/20
+                                    text-blue-400
+                                    px-4
+                                    py-2
+                                    rounded-full
+                                "
+                                >
+                                    📅 {movie.release_year}
+                                </span>
 
-                <p>
+                            </div>
 
-                    🎬 {movie.actors}
+                            <div className="mt-8 space-y-4">
 
-                </p>
+                                <p>
 
-            </div>
+                                    <span className="font-semibold text-slate-300">
 
-            <div className="mt-8">
+                                        Genre:
 
-                <h2 className="text-2xl font-bold">
+                                    </span>
 
-                    Description
+                                    {" "}
+                                    {movie.genre}
 
-                </h2>
+                                </p>
 
-                <p className="mt-3">
+                                <p>
 
-                    {movie.description}
+                                    <span className="font-semibold text-slate-300">
 
-                </p>
+                                        Director:
 
-            </div>
+                                    </span>
 
-            <div className="mt-8">
+                                    {" "}
+                                    {movie.director || "Unknown"}
 
-                <h2 className="text-2xl font-bold">
+                                </p>
 
-                    Rate this Movie
+                                <p>
 
-                </h2>
+                                    <span className="font-semibold text-slate-300">
 
-                {
-                    user ? (
+                                        Cast:
 
-                        <RatingStars onRate={submitRating} />
+                                    </span>
 
-                    ) : (
+                                    {" "}
+                                    {movie.actors || "Unknown"}
 
-                        <p className="text-red-500">
+                                </p>
 
-                            Please login to rate movies.
+                            </div>
 
-                        </p>
+                        </div>
 
-                    )
-                }
+                    </div>
 
-            </div>
+                </div>
+
+            </section>
+
+            {/* Description */}
+
+            <section className="max-w-7xl mx-auto px-8 py-12">
+
+                <div
+                    className="
+                    bg-slate-800
+                    rounded-2xl
+                    p-8
+                    shadow-lg
+                "
+                >
+
+                    <h2 className="text-3xl font-bold mb-6">
+
+                        📖 Description
+
+                    </h2>
+
+                    <p
+                        className="
+                        text-slate-300
+                        leading-8
+                        text-lg
+                    "
+                    >
+
+                        {movie.description}
+
+                    </p>
+
+                </div>
+
+            </section>
+
+            {/* Rating */}
+
+            <section className="max-w-7xl mx-auto px-8 pb-12">
+
+                <div
+                    className="
+                    bg-slate-800
+                    rounded-2xl
+                    p-8
+                    shadow-lg
+                "
+                >
+
+                    <h2 className="text-3xl font-bold mb-6">
+
+                        ⭐ Rate This Movie
+
+                    </h2>
+
+                    {
+
+                        user ? (
+
+                            <RatingStars onRate={submitRating} />
+
+                        ) : (
+
+                            <div
+                                className="
+                                bg-red-500/10
+                                border
+                                border-red-500/20
+                                text-red-400
+                                rounded-xl
+                                p-4
+                            "
+                            >
+
+                                Please login to rate movies.
+
+                            </div>
+
+                        )
+
+                    }
+
+                </div>
+
+            </section>
+
+            {/* Recommendations */}
+
+            {
+
+                recommendations.length > 0 && (
+
+                    <section className="max-w-7xl mx-auto px-8 pb-20">
+
+                        <h2 className="text-3xl font-bold mb-8">
+
+                            🎯 Similar Movies
+
+                        </h2>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                            {
+
+                                recommendations.map((title, index) => (
+
+                                    <div
+                                        key={index}
+                                        className="
+                                        bg-slate-800
+                                        rounded-xl
+                                        p-5
+                                        hover:scale-105
+                                        transition
+                                        shadow-lg
+                                    "
+                                    >
+
+                                        <div
+                                            className="
+                                            h-40
+                                            bg-gradient-to-br
+                                            from-blue-600
+                                            to-purple-700
+                                            rounded-lg
+                                            flex
+                                            items-center
+                                            justify-center
+                                            text-4xl
+                                            mb-4
+                                        "
+                                        >
+
+                                            🎬
+
+                                        </div>
+
+                                        <h3 className="font-semibold">
+
+                                            {title}
+
+                                        </h3>
+
+                                    </div>
+
+                                ))
+
+                            }
+
+                        </div>
+
+                    </section>
+
+                )
+
+            }
 
         </main>
 

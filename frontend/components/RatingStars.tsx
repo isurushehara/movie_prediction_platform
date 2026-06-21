@@ -1,10 +1,24 @@
 "use client";
 
+import { useState } from "react";
+
 interface Props {
     onRate: (rating: number) => void;
 }
 
 export default function RatingStars({ onRate }: Props) {
+
+    const [hovered, setHovered] = useState(0);
+
+    const [selected, setSelected] = useState(0);
+
+    const handleClick = (rating: number) => {
+
+        setSelected(rating);
+
+        onRate(rating);
+
+    };
 
     return (
 
@@ -16,13 +30,38 @@ export default function RatingStars({ onRate }: Props) {
 
                     key={star}
 
-                    onClick={() => onRate(star)}
+                    onMouseEnter={() => setHovered(star)}
 
-                    className="text-3xl hover:scale-110 transition"
+                    onMouseLeave={() => setHovered(0)}
+
+                    onClick={() => handleClick(star)}
+
+                    className="
+                        text-5xl
+                        transition-all
+                        duration-200
+                        hover:scale-125
+                    "
 
                 >
 
-                    ⭐
+                    <span
+
+                        className={
+
+                            star <= (hovered || selected)
+
+                                ? "text-yellow-400"
+
+                                : "text-slate-500"
+
+                        }
+
+                    >
+
+                        ★
+
+                    </span>
 
                 </button>
 
