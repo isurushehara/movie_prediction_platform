@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import api from "@/services/api";
 import { Movie } from "@/types/movie";
 import RatingStars from "@/components/RatingStars";
+import { getCurrentUser } from "@/services/auth";
 
 export default function MovieDetailsPage() {
 
@@ -14,6 +15,8 @@ export default function MovieDetailsPage() {
     const id = params.id;
 
     const [movie, setMovie] = useState<Movie | null>(null);
+
+    const user = getCurrentUser();
 
     useEffect(() => {
 
@@ -46,31 +49,39 @@ export default function MovieDetailsPage() {
 
     const submitRating = async (rating: number) => {
 
-    if (!movie) return;
+        if (!movie) return;
 
-    try {
+        try {
 
-        await api.post("/ratings/", {
+            if (!user) {
 
-            user_id: 1,
+                alert("Please login first");
 
-            movie_id: movie.id,
+                return;
 
-            rating: rating,
+            }
 
-        });
+            await api.post("/ratings/", {
 
-        alert("Rating saved successfully!");
+                user_id: user.user_id,
 
-    } catch (error) {
+                movie_id: movie.id,
 
-        console.error(error);
+                rating: rating
 
-        alert("Failed to save rating.");
+            });
 
-    }
+            alert("Rating saved successfully!");
 
-};
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Failed to save rating.");
+
+        }
+
+    };
 
     return (
 
@@ -140,11 +151,21 @@ export default function MovieDetailsPage() {
 
                 </h2>
 
-                <RatingStars
+                {
+                    user ? (
 
-                    onRate={submitRating}
+                        <RatingStars onRate={submitRating} />
 
-                />
+                    ) : (
+
+                        <p className="text-red-500">
+
+                            Please login to rate movies.
+
+                        </p>
+
+                    )
+                }
 
             </div>
 

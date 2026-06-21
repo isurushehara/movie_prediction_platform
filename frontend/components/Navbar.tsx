@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 
+const logout = () => {
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+
+};
+
 export default function Navbar() {
 
     return (
@@ -39,6 +47,12 @@ export default function Navbar() {
                     <Link href="/profile">
                         Profile
                     </Link>
+
+                    <button onClick={logout}>
+
+                        Logout
+
+                    </button>
 
                 </div>
 

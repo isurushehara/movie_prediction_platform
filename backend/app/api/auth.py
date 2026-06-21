@@ -53,9 +53,11 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
             detail="Invalid email or password"
         )
 
-    token = create_access_token(
-        {"sub": db_user.email}
-    )
+    token = create_access_token({
+    "sub": db_user.email,
+    "user_id": db_user.id,
+    "name": db_user.name
+    })
 
     return {
         "access_token": token,
