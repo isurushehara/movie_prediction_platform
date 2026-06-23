@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 
 import api from "@/services/api";
 
-import MovieCard from "@/components/MovieCard";
-import SearchBar from "@/components/SearchBar";
+import MovieCard from "@/features/movies/components/MovieCard";
+import SearchBar from "@/features/movies/components/SearchBar";
 
 import { Movie } from "@/features/movies/types/movie";
 import { MovieService } from "@/features/movies/services/movie";
-import RatingStars from "@/components/RatingStars";
+import RatingStars from "@/features/ratings/components/RatingStars";
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);

@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import api from "@/services/api";
 import { Movie } from "@/features/movies/types/movie";
 import { MovieService } from "@/features/movies/services/movie";
-import RatingStars from "@/components/RatingStars";
+import RatingStars from "@/features/ratings/components/RatingStars";
 import { RatingService } from "@/features/ratings/services/rating";
 import { getCurrentUser } from "@/features/auth/services/auth";
 
