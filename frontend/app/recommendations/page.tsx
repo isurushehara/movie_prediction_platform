@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import api from "@/services/api";
 import { getCurrentUser } from "@/features/auth/services/auth";
 import { Recommendation } from "@/features/recommendations/types/recommendation";
+import { RecommendationService } from "@/features/recommendations/services/recommendation";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function RecommendationsPage() {
@@ -18,8 +19,8 @@ export default function RecommendationsPage() {
             return;
         }
 
-        api
-            .get(`/personalized/${user.user_id}`)
+        RecommendationService
+            .getPersonalizedRecommendations(user.user_id)
             .then((response) => {
                 setRecommendations(response.data);
             })

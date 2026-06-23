@@ -8,6 +8,7 @@ import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 
 import { Movie } from "@/features/movies/types/movie";
+import { MovieService } from "@/features/movies/services/movie";
 import RatingStars from "@/components/RatingStars";
 
 export default function Home() {
@@ -16,8 +17,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get("/movies")
+    MovieService
+      .getMovies()
       .then((response) => {
         setMovies(response.data);
       })
