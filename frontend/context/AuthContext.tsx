@@ -7,10 +7,11 @@ import {
     useState,
 } from "react";
 
-import { getCurrentUser } from "@/services/auth";
+import { getCurrentUser } from "@/features/auth/services/auth";
+import { UserToken } from "@/features/auth/types/auth";
 
 interface AuthContextType {
-    user: any;
+    user: UserToken | null;
     isLoggedIn: boolean;
     loading: boolean;
     logout: () => void;
@@ -24,7 +25,7 @@ export function AuthProvider({
     children: React.ReactNode;
 }) {
 
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserToken | null>(null);
 
     const [loading, setLoading] = useState(true);
 

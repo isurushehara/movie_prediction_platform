@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 import api from "@/services/api";
-import { Movie } from "@/types/movie";
-import RatingStars from "@/components/RatingStars";
-import { getCurrentUser } from "@/services/auth";
+import { Movie } from "@/features/movies/types/movie";
+import { MovieService } from "@/features/movies/services/movie";
+import RatingStars from "@/features/ratings/components/RatingStars";
+import { RatingService } from "@/features/ratings/services/rating";
+import { getCurrentUser } from "@/features/auth/services/auth";
 
 export default function MovieDetailsPage() {
     const params = useParams();
@@ -18,8 +20,8 @@ export default function MovieDetailsPage() {
     const user = getCurrentUser();
 
     useEffect(() => {
-        api
-            .get(`/movies/${id}`)
+        MovieService
+            .getMovie(String(id))
             .then((res) => {
                 setMovie(res.data);
             })
@@ -57,11 +59,11 @@ export default function MovieDetailsPage() {
                 return;
             }
 
-            await api.post("/ratings/", {
-                user_id: user.user_id,
-                movie_id: movie.id,
-                rating: rating,
-            });
+            await RatingService.createRating(
+                user.user_id,
+                movie.id,
+                rating
+            );
 
             alert("Rating saved successfully!");
         } catch (error) {

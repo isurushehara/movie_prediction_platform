@@ -1,18 +1,16 @@
 import { jwtDecode } from "jwt-decode";
 
-interface UserToken {
-    sub: string;
-    user_id: number;
-    name: string;
-}
+import { UserToken } from "../types/auth";
 
-export function getCurrentUser(): UserToken | null {
+export function getCurrentUser():
+    UserToken | null {
 
     if (typeof window === "undefined") {
         return null;
     }
 
-    const token = localStorage.getItem("token");
+    const token =
+        localStorage.getItem("token");
 
     if (!token) {
         return null;

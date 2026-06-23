@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Movie } from "@/types/movie";
+import { Movie } from "@/features/movies/types/movie";
 
 interface Props {
     movie: Movie;
