@@ -7,7 +7,7 @@ import api from "@/services/api";
 import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 
-import { Movie } from "@/types/movie";
+import { Movie } from "@/features/movies/types/movie";
 import RatingStars from "@/components/RatingStars";
 
 export default function Home() {

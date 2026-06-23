@@ -7,7 +7,7 @@ import {
     useState,
 } from "react";
 
-import { getCurrentUser } from "@/services/auth";
+import { getCurrentUser } from "@/features/auth/services/auth";
 
 interface AuthContextType {
     user: any;

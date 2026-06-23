@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import api from "@/services/api";
-import { getCurrentUser } from "@/services/auth";
-import { Recommendation } from "@/types/recommendation";
+import { getCurrentUser } from "@/features/auth/services/auth";
+import { Recommendation } from "@/features/recommendations/types/recommendation";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function RecommendationsPage() {

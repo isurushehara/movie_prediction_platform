@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "@/services/auth";
+import { getCurrentUser } from "@/features/auth/services/auth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 interface User {

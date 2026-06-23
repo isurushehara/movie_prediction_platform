@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 import api from "@/services/api";
-import { Movie } from "@/types/movie";
+import { Movie } from "@/features/movies/types/movie";
 import RatingStars from "@/components/RatingStars";
-import { getCurrentUser } from "@/services/auth";
+import { getCurrentUser } from "@/features/auth/services/auth";
 
 export default function MovieDetailsPage() {
     const params = useParams();
