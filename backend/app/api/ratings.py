@@ -3,17 +3,14 @@ from sqlalchemy.orm import Session
 
 from app.database.connection import get_db
 
-# Import all related models
-from app.models.user import User
-from app.models.movie import Movie
-from app.models.rating import Rating
-
 from app.schemas.rating import RatingCreate
+from app.services.rating_service import RatingService
 
 router = APIRouter(
     prefix="/ratings",
     tags=["Ratings"]
 )
+
 
 @router.post("/")
 def add_rating(
@@ -21,15 +18,10 @@ def add_rating(
     db: Session = Depends(get_db)
 ):
 
-    rating = Rating(
-        user_id=data.user_id,
-        movie_id=data.movie_id,
-        rating=data.rating
+    rating = RatingService.create_rating(
+        db,
+        data
     )
-
-    db.add(rating)
-    db.commit()
-    db.refresh(rating)
 
     return {
         "message": "Rating saved successfully",
