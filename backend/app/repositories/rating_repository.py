@@ -13,4 +13,18 @@ class RatingRepository:
         db.commit()
         db.refresh(rating)
 
-        return rating
+        return rating 
+
+    @staticmethod
+    def get_user_high_ratings(
+        db: Session,
+        user_id: int
+    ):
+        return (
+            db.query(Rating)
+            .filter(
+                Rating.user_id == user_id,
+                Rating.rating >= 4
+            )
+            .all()
+        )

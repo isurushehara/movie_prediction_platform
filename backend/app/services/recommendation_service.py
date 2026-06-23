@@ -1,6 +1,12 @@
 import os
 import joblib
 
+from sqlalchemy.orm import Session
+
+from app.repositories.rating_repository import (
+    RatingRepository
+)
+
 
 class RecommendationService:
 
@@ -63,5 +69,85 @@ class RecommendationService:
                     movie[0]
                 ].MOVIES
             )
+
+        return result
+
+    @classmethod
+    def personalized_recommendation(
+        cls,
+        db: Session,
+        user_id: int
+    ):
+
+        ratings = (
+            RatingRepository
+            .get_user_high_ratings(
+                db,
+                user_id
+            )
+        )
+
+        if len(ratings) == 0:
+
+            return {
+                "message":
+                "No ratings found for this user."
+            }
+
+        watched_movies = []
+        scores = {}
+
+        for rating in ratings:
+
+            watched_movies.append(
+                rating.movie_id
+            )
+
+            index = rating.movie_id - 1
+
+            distances = cls.similarity[
+                index
+            ]
+
+            similar_movies = sorted(
+                list(enumerate(distances)),
+                key=lambda x: x[1],
+                reverse=True
+            )[1:21]
+
+            for movie, score in similar_movies:
+
+                movie_id = movie + 1
+
+                if movie_id in watched_movies:
+                    continue
+
+                if movie_id in scores:
+                    scores[movie_id] += score
+                else:
+                    scores[movie_id] = score
+
+        recommendations = sorted(
+            scores.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )[:10]
+
+        result = []
+
+        for movie_id, score in recommendations:
+
+            movie = cls.movies.iloc[
+                movie_id - 1
+            ]
+
+            result.append({
+                "movie_id": int(movie_id),
+                "title": movie["MOVIES"],
+                "score": round(
+                    float(score),
+                    4
+                )
+            })
 
         return result
