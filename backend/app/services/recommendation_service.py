@@ -18,6 +18,7 @@ class RecommendationService:
         os.path.join(
             BASE_DIR,
             "..",
+            "..",
             ".."
         )
     )
